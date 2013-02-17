@@ -8,4 +8,5 @@ env:
 install:
   - pip install -q Django==$DJANGO_VERSION --use-mirrors
   - pip install -q -r requirements.txt --use-mirrors
+  - export PYTHONPATH=.
 script: django-admin.py test tempus --settings=tempus.tests.settings
