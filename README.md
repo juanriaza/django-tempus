@@ -28,7 +28,7 @@ We own the `Awesome Shop` where you can find the finest rockets…
 
 Rockets are pricey… and every single cool pony out there wants one.
 
-We want to boost our sales and we offer a discount and mail it to those cute ponies.
+We want to boost our sales and we offer a one day discount and mail it to those cute ponies.
 
 Let's go!
 
@@ -38,6 +38,7 @@ from tempus.middleware import BaseTempusMiddleware
 
 class RocketDiscountMiddleware(BaseTempusMiddleware):
     param_name = 'rocket_promo'
+    max_age = 86400  # 24h
 
     def success_func(self, request, token_data):
         discount = token_data.get('discount')
@@ -80,6 +81,31 @@ Just because you rock we offer you a discount on our ultimate X-ROCKET 3K.
 ```
 
 ![image](http://i.imgur.com/rtAIOCx.png)
+
+## Contrib Packages
+
+### Automatic Login
+
+Add the `tempus.contrib.auto_login.middleware.AutoLoginMiddleware` to `MIDDLEWARE_CLASSES` at `settings.py`
+
+```python
+MIDDLEWARE_CLASSES = (
+	...
+    'tempus.contrib.auto_login.middleware.AutoLoginMiddleware'
+)
+```
+
+Now we can send emails with urls that logs the user in.
+
+```
+{% load tempus %}
+
+Hi {{ pony_name }},
+
+Check your direct messages from {{ another_pony }}. 
+
+{% url 'direct_messages' %}{% tempus {'user_pk': user.pk} %}
+```
 
 
 ## Running the tests
