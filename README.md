@@ -8,6 +8,13 @@
 
 Django Tempus provides url tokens that triggers custom actions.
 
+The flow is:
+
+1. The user requests an url with a token.
+2. A middleware decrypt that token and triggers an action.
+3. Profit.
+
+
 ## Installation
 
 Install using `pip`, including any optional packages you want...
@@ -21,6 +28,31 @@ Install using `pip`, including any optional packages you want...
     $ pip install -r requirements.txt
 
 ## How to use it?
+
+It provides a base middleware, and a template tag. With your own middleware you define the action that is triggered and with the templatetag you create the tokenized urls.
+
+```python
+from tempus.middleware import BaseTempusMiddleware
+
+
+class YourMiddleware(BaseTempusMiddleware):
+    param_name = 'tempus'  # you can override the param name
+    max_age = None  # you can provide an expiry date (in seconds)
+
+    def success_func(self, request, token_data):
+        ...
+
+    def expired_func(self, request, token_data):
+        ...
+```
+
+Create tokenized urls with the template tag:
+
+```
+{% url 'for_something' %}{% tempus {'my_data': 'my_value'} param_key='param_name' %}
+```
+
+### Example
 
 We own the `Awesome Shop` where you can find the finest rockets…
 
