@@ -79,6 +79,8 @@ Just because you rock we offer you a discount on our ultimate X-ROCKET 3K.
 {% url 'rocket_url' %}{% tempus {'discount': 500} param_key='rocket_promo' %}
 ```
 
+![image](http://i.imgur.com/rtAIOCx.png)
+
 
 ## Running the tests
 To run the tests against the current environment:
