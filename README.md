@@ -6,7 +6,7 @@
 
 ## Overview
 
-TBD
+Django Tempus provides url tokens that triggers custom actions.
 
 ## Installation
 
@@ -27,7 +27,7 @@ TBD
 ## Running the tests
 To run the tests against the current environment:
 
-    $ ./manage.py test tempus
+    $ django-admin.py test tempus --settings=tempus.tests.settings
 
 ## Changelog
 
