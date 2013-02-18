@@ -18,7 +18,7 @@ The flow is:
 ## Installation
 
 Install using `pip`, including any optional packages you want...
-	
+
 	$ pip install django-tempus
 
 ...or clone the project from github.
@@ -49,7 +49,7 @@ class YourMiddleware(BaseTempusMiddleware):
 Create tokenized urls with the template tag:
 
 ```
-{% url 'for_something' %}{% tempus {'my_data': 'my_value'} param_key='param_name' %}
+{% url 'for_something' %}{% tempus {'my_data': 'my_value'} param_name='param_name' %}
 ```
 
 ### Example
@@ -109,7 +109,7 @@ Hi {{ pony_name }},
 
 Just because you rock we offer you a discount on our ultimate X-ROCKET 3K.
 
-{% url 'rocket_url' %}{% tempus {'discount': 500} param_key='rocket_promo' %}
+{% url 'rocket_url' %}{% tempus {'discount': 500} param_name='rocket_promo' %}
 ```
 
 ![image](http://i.imgur.com/rtAIOCx.png)
@@ -134,7 +134,7 @@ Now we can send emails with urls that logs the user in.
 
 Hi {{ pony_name }},
 
-Check your direct messages from {{ another_pony }}. 
+Check your direct messages from {{ another_pony }}.
 
 {% url 'direct_messages' %}{% tempus {'user_pk': user.pk} %}
 ```
