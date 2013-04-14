@@ -56,7 +56,7 @@ Create tokenized urls with the template tag:
 
 We own the `Awesome Shop` where you can find the finest rockets…
 
-![image](https://www.django-shop.org/media/img/theme/django-pony-shop.png)
+![image](http://i.imgur.com/QqH06NS.jpg)
 
 Rockets are pricey… and every single cool pony out there wants one.
 
