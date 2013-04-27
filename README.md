@@ -147,8 +147,14 @@ To run the tests against the current environment:
 
 ## Changelog
 
+### 0.2.0
+
+**27th Apr 2013**
+
+* Add compression by default.
+
 ### 0.1.0
 
-**17th Feb 2012**
+**17th Feb 2013**
 
 * First release.
