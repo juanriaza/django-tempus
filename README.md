@@ -1,8 +1,8 @@
 # Django Tempus
 
 [![Build Status](https://travis-ci.org/juanriaza/django-tempus.png?branch=master)](https://travis-ci.org/juanriaza/django-tempus)
-
-
+[![Pypi Package](https://badge.fury.io/py/django-tempus.png)](http://badge.fury.io/py/django-tempus)
+[![Downloads](https://pypip.in/d/django-tempus/badge.png)](https://crate.io/packages/django-tempus/)
 
 ## Overview
 
