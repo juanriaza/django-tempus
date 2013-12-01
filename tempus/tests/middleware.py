@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
-from django.test import Client, TestCase
+from django.test import Client
+from django.test import TestCase
 from django.contrib.auth.models import User
 
 from tempus.utils import tempus_dumps

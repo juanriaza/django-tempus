@@ -29,7 +29,7 @@ Install using `pip`, including any optional packages you want...
 
 ## How to use it?
 
-It provides a base middleware, and a template tag. With your own middleware you define the action that is triggered and with the templatetag you create the tokenized urls.
+It provides a base middleware, and a template tag. With your own middleware you define the action that is triggered and with the templatetag you create the tokenized urls. The token data is available at `request.tempus`.
 
 ```python
 from tempus.middleware import BaseTempusMiddleware
@@ -39,17 +39,19 @@ class YourMiddleware(BaseTempusMiddleware):
     param_name = 'tempus'  # you can override the param name
     max_age = None  # you can provide an expiry date (in seconds)
 
-    def success_func(self, request, token_data):
-        ...
+    def success_func(self, request):
+        # perform any action before reaching the view
+        pass
 
-    def expired_func(self, request, token_data):
-        ...
+    def expired_func(self, request):
+        # maybe redirect to another url
+        pass
 ```
 
 Create tokenized urls with the template tag:
 
 ```
-{% url 'for_something' %}{% tempus {'my_data': 'my_value'} param_name='param_name' %}
+{% url 'for_something' %}{% tempus {'my_data': 'my_value'} param_name='custom_param' %}
 ```
 
 ### Example
@@ -71,11 +73,6 @@ from tempus.middleware import BaseTempusMiddleware
 class RocketDiscountMiddleware(BaseTempusMiddleware):
     param_name = 'rocket_promo'
     max_age = 86400  # 24h
-
-    def success_func(self, request, token_data):
-        discount = token_data.get('discount')
-        if discount:
-            request.session['discount'] = discount
 ```
 
 We need to add the `RocketDiscountMiddleware` to `MIDDLEWARE_CLASSES` at `settings.py`
@@ -92,7 +89,7 @@ And get the discount:
 ```python
 def rocket_view(request, rocket_model):
 	rocket_price = Rocket.objects.get(model=rocket_model).price
-	discount = request.session.get('discount', 0)
+	discount = request.tempus.get('discount', 0)
 	rocket_price -= discount
 	return render('awesome/template.html', {'price': rocket_price})
 ```
@@ -146,6 +143,12 @@ To run the tests against the current environment:
     $ django-admin.py test tempus --settings=tempus.tests.settings
 
 ## Changelog
+
+### 0.3.0
+
+**1st Dec 2013**
+
+* Add `request.tempus`.
 
 ### 0.2.0
 

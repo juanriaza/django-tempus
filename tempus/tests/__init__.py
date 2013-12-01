@@ -1,2 +1,3 @@
 # flake8: noqa
-from middleware import TestAutoLogin, TestPromo
+from middleware import TestAutoLogin
+from middleware import TestPromo

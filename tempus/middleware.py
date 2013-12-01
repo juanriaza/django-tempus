@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from django.utils.cache import add_never_cache_headers
-from django.core.signing import BadSignature, SignatureExpired
+from django.core.signing import BadSignature
+from django.core.signing import SignatureExpired
 
 from urlobject import URLObject
 
@@ -22,20 +23,21 @@ class BaseTempusMiddleware(object):
         response = redirect(unicode(redirect_url))
         try:
             token_data = tempus_loads(token, max_age=self.max_age)
+            request.tempus = token_data
         except SignatureExpired:
             expired_func = getattr(self, 'expired_func')
             if expired_func:
-                expired_func(request, token_data)
+                expired_func(request)
         except BadSignature:
             return response
         else:
-            self.success_func(request, token_data)
+            self.success_func(request)
 
             add_never_cache_headers(response)
             return response
 
-    def success_func(self, request, token_data):
-        raise NotImplementedError
+    def success_func(self, request):
+        pass
 
-    def expired_func(self, request, token_data):
-        raise NotImplementedError
+    def expired_func(self, request):
+        pass

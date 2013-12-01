@@ -15,8 +15,8 @@ from tempus.middleware import BaseTempusMiddleware
 
 
 class AutoLoginMiddleware(BaseTempusMiddleware):
-    def _get_user(self, request, token_data):
-        user_pk = token_data.get('user_pk')
+    def _get_user(self, request):
+        user_pk = request.tempus.get('user_pk')
         if user_pk:
             # Only change user if necessary. We strip the token in any case.
             # The AnonymousUser class has no 'pk' attribute (#18093)
@@ -27,8 +27,8 @@ class AutoLoginMiddleware(BaseTempusMiddleware):
             except (ValueError, User.DoesNotExist):
                 return None
 
-    def success_func(self, request, token_data):
-        user = self._get_user(request, token_data)
+    def success_func(self, request):
+        user = self._get_user(request)
         if user:
             user.backend = settings.AUTHENTICATION_BACKENDS[0]
             login(request, user)

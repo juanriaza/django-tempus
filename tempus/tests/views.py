@@ -1,7 +1,6 @@
 from django.http import HttpResponse
-from django.template import RequestContext, Template
-
-from tempus.middleware import BaseTempusMiddleware
+from django.template import RequestContext
+from django.template import Template
 
 
 template_user = Template(
@@ -24,17 +23,8 @@ def show_user(request):
 
 def promo(request):
     price = 25
-    discount = request.session.get('discount', 0)
+    discount = request.tempus.get('discount', 0)
     price -= discount
     context = RequestContext(request, {'price': price})
     return HttpResponse(template_promo.render(context),
                         content_type='text/plain')
-
-
-class PromoMiddleware(BaseTempusMiddleware):
-    param_name = 'promo'
-
-    def success_func(self, request, token_data):
-        discount = token_data.get('discount')
-        if discount:
-            request.session['discount'] = discount
