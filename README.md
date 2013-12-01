@@ -100,7 +100,7 @@ We're done.
 Now we can send special tokenized urls with the discount to our beloved ponies
 
 ```
-{% load tempus %}
+{% load tempus_tag %}
 
 Hi {{ pony_name }},
 
@@ -127,7 +127,7 @@ MIDDLEWARE_CLASSES = (
 Now we can send emails with urls that logs the user in.
 
 ```
-{% load tempus %}
+{% load tempus_tag %}
 
 Hi {{ pony_name }},
 
