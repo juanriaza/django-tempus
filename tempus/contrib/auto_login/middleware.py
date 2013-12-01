@@ -16,7 +16,7 @@ from tempus.middleware import BaseTempusMiddleware
 
 class AutoLoginMiddleware(BaseTempusMiddleware):
     def _get_user(self, request):
-        user_pk = request.tempus.get('user_pk')
+        user_pk = request.tempus
         if user_pk:
             # Only change user if necessary. We strip the token in any case.
             # The AnonymousUser class has no 'pk' attribute (#18093)

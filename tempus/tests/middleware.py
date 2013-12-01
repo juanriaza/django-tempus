@@ -17,8 +17,7 @@ class TestAutoLogin(TestCase):
         self.user = User.objects.create_user(self.username,
                                              self.email,
                                              self.password)
-        user_data = {'user_pk': self.user.pk}
-        self.token_data = tempus_dumps(user_data)
+        self.token_data = tempus_dumps(self.user.pk)
 
     def test_redirect(self):
         response = self.client.get('/user/',

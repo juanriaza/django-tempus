@@ -133,7 +133,7 @@ Hi {{ pony_name }},
 
 Check your direct messages from {{ another_pony }}.
 
-{% url 'direct_messages' %}{% tempus {'user_pk': user.pk} %}
+{% url 'direct_messages' %}{% tempus user.pk %}
 ```
 
 
