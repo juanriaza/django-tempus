@@ -149,6 +149,7 @@ To run the tests against the current environment:
 **1st Dec 2013**
 
 * Add `request.tempus`.
+* Automatic Login now just takes the user pk.
 
 ### 0.2.0
 
