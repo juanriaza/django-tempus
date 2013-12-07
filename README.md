@@ -144,6 +144,13 @@ To run the tests against the current environment:
 
 ## Changelog
 
+### 0.4.0
+
+**7th Dec 2013**
+
+* Add support for multiple chained middlewares.
+* Fix template tag import error.
+
 ### 0.3.0
 
 **1st Dec 2013**
