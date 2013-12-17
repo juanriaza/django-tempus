@@ -1,4 +1,5 @@
 from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 from django.utils.cache import add_never_cache_headers
 from django.core.signing import BadSignature
 from django.core.signing import SignatureExpired
@@ -32,17 +33,17 @@ class BaseTempusMiddleware(object):
         except SignatureExpired:
             expired_func = getattr(self, 'expired_func', None)
             if expired_func:
-                expired_func(request)
+                value = expired_func(request)
+                if isinstance(value, HttpResponseRedirect):
+                    return value
         except BadSignature:
             return response
         else:
-            self.success_func(request)
+            success_func = getattr(self, 'success_func', None)
+            if success_func:
+                value = success_func(request)
+                if isinstance(value, HttpResponseRedirect):
+                    return value
 
             add_never_cache_headers(response)
             return response
-
-    def success_func(self, request):
-        pass
-
-    def expired_func(self, request):
-        pass
