@@ -23,14 +23,14 @@ class BaseTempusMiddleware(object):
         response = redirect(unicode(redirect_url))
         try:
             token_data = tempus_loads(token, max_age=self.max_age)
-            tempus = getattr(request, 'tempus')
+            tempus = getattr(request, 'tempus', None)
             if tempus:
                 current_tempus = tempus.copy()
                 request.tempus = current_tempus.update(token_data)
             else:
                 request.tempus = token_data
         except SignatureExpired:
-            expired_func = getattr(self, 'expired_func')
+            expired_func = getattr(self, 'expired_func', None)
             if expired_func:
                 expired_func(request)
         except BadSignature:
