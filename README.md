@@ -144,6 +144,12 @@ To run the tests against the current environment:
 
 ## Changelog
 
+### 0.5.0
+
+**18th Dec 2013**
+
+* Check if success_func/expired_func returns a HttpResponseRedirect value.
+
 ### 0.4.0
 
 **7th Dec 2013**
