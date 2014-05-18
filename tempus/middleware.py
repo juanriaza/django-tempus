@@ -32,22 +32,22 @@ class BaseTempusMiddleware(object):
             else:
                 request.tempus = token_data
         except SignatureExpired:
-            value = self.__process_func('expired_func')
+            value = self.__process_func(request, 'expired_func')
             if value:
                 return value
         except BadSignature:
-            value = self.__process_func('unsuccess_func')
+            value = self.__process_func(request, 'unsuccess_func')
             if value:
                 return value
         else:
-            value = self.__process_func('success_func')
+            value = self.__process_func(request, 'success_func')
             if value:
                 return value
 
         add_never_cache_headers(response)
         return response
 
-    def __process_func(self, func_name):
+    def __process_func(self, request, func_name):
         func_name = getattr(self, func_name, None)
         if func_name:
             value = func_name(request)
