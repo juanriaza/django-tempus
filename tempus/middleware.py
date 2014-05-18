@@ -50,6 +50,6 @@ class BaseTempusMiddleware(object):
     def __process_func(self, func_name):
         func_name = getattr(self, func_name, None)
         if func_name:
-            value = func_nam(request)
+            value = func_name(request)
             if isinstance(value, HttpResponseRedirect):
                 return value
