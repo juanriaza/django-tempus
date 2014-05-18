@@ -27,23 +27,29 @@ class BaseTempusMiddleware(object):
             tempus = getattr(request, 'tempus', None)
             if tempus:
                 current_tempus = tempus.copy()
-                request.tempus = current_tempus.update(token_data)
+                current_tempus.update(token_data)
+                request.tempus = current_tempus
             else:
                 request.tempus = token_data
         except SignatureExpired:
-            expired_func = getattr(self, 'expired_func', None)
-            if expired_func:
-                value = expired_func(request)
-                if isinstance(value, HttpResponseRedirect):
-                    return value
+            value = self.__process_func('expired_func')
+            if value:
+                return value
         except BadSignature:
-            return response
+            value = self.__process_func('unsuccess_func')
+            if value:
+                return value
         else:
-            success_func = getattr(self, 'success_func', None)
-            if success_func:
-                value = success_func(request)
-                if isinstance(value, HttpResponseRedirect):
-                    return value
+            value = self.__process_func('success_func')
+            if value:
+                return value
 
-            add_never_cache_headers(response)
-            return response
+        add_never_cache_headers(response)
+        return response
+
+    def __process_func(self, func_name):
+        func_name = getattr(self, func_name, None)
+        if func_name:
+            value = func_nam(request)
+            if isinstance(value, HttpResponseRedirect):
+                return value
