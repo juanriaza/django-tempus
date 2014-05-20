@@ -1,5 +1,5 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect
-from django.http import HttpResponseRedirect
 from django.utils.cache import add_never_cache_headers
 from django.core.signing import BadSignature
 from django.core.signing import SignatureExpired
@@ -51,5 +51,5 @@ class BaseTempusMiddleware(object):
         func_name = getattr(self, func_name, None)
         if func_name:
             value = func_name(request)
-            if isinstance(value, HttpResponseRedirect):
+            if isinstance(value, HttpResponse):
                 return value
