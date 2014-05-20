@@ -144,6 +144,12 @@ To run the tests against the current environment:
 
 ## Changelog
 
+### 0.7.0
+
+**20th May 2014**
+
+* Return any type of `HttpResponse` value from a handler.
+
 ### 0.6.0
 
 **18th May 2014**
